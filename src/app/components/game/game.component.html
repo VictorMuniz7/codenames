@@ -1,0 +1,36 @@
+<div class="game">
+  @if(words.length < 1){
+    <div class="center">
+      <button mat-raised-button (click)="startGame()">Start Game</button>
+    </div>
+  }
+
+  @if(words.length > 1){
+    <div class="center">
+      <mat-button-toggle-group name="role" aria-label="Role" [(ngModel)]="role">
+          <mat-button-toggle value="operative">Operative</mat-button-toggle>
+          <mat-button-toggle value="spymaster">Spymaster</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  }
+
+
+  <div class="container">
+    @for (word of words; track $index) {
+      @if (role == 'spymaster' && !word.selected) {
+      <div class="word" [style.border-color]="word.color">{{ word.word | uppercase}}</div>
+      }
+      @if(role == 'operative' && !word.selected){
+      <div class="word" [style.cursor]="'pointer'" (click)="clickWord(word)">{{ word.word | uppercase}}</div>
+      }
+      @if(word.selected){
+        <div class="word" [ngStyle]="{'background-color': word.color == 'neutral' ? 'lightgray' : word.color, 'border-color': word.color, 'color': '#ffffff'}" >{{ word.word | uppercase}}</div>
+      }
+    }
+  </div>
+
+  @if(words.length > 1){
+    <button mat-raised-button class="nextGame" (click)="nextGame()">Next Game</button>
+  }
+
+</div>

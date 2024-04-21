@@ -1,0 +1,31 @@
+.game{
+  margin: 5%;
+
+  .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container{
+    display: flex;
+    line-height: 100px;
+    flex-wrap: wrap;
+
+    .word{
+      flex: 1 0 16%;
+      background-color: rgb(121, 121, 121);
+      border: 5px solid #ddd;
+      text-align: center;
+      margin: 10px;
+      font-size: 1.5em;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+  }
+
+  .nextGame{
+    float: right;
+  }
+
+}
