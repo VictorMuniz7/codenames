@@ -25,6 +25,8 @@ export class GameComponent implements OnInit{
   role: string = 'operative';
   words: Word[] = []
 
+  gameRunning: boolean = false
+
   itemRepeat = Array(25).fill(0);
 
   socketIoService = inject(SocketioService)
@@ -38,12 +40,12 @@ export class GameComponent implements OnInit{
     this.receiveGameUpdate();
   }
 
-  nextGame(){
+  startGame(){
     this.socketIoService.startGame(this.gameId);
   }
 
-  startGame(){
-    this.socketIoService.startGame(this.gameId);
+  stopGame(){
+    this.socketIoService.stopGame(this.gameId)
   }
 
   clickWord(word: Word){
@@ -58,8 +60,12 @@ export class GameComponent implements OnInit{
       })
     })
     this.socketIoService.receiveEvents('startGame').subscribe((words) => {
-      this.role = 'operative'
       this.words = words
+      this.gameRunning = true
+    })
+    this.socketIoService.receiveEvents('stopGame').subscribe((msg) => {
+      this.gameRunning = false
+      this.words = []
     })
   }
 
@@ -69,4 +75,6 @@ export class GameComponent implements OnInit{
     })
 
   }
+
+
 }

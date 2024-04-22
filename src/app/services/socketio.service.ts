@@ -26,6 +26,10 @@ export class SocketioService {
     this.socket.emit('gameUpdate', {gameId: gameId, words: words})
   }
 
+  stopGame(gameId: string){
+    this.socket.emit('stopGame', {gameId: gameId})
+  }
+
   receiveEvents(event: string): Observable<any>{
     return new Observable((observer) => {
       this.socket.on(event, (response) => {

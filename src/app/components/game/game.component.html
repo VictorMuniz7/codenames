@@ -5,14 +5,12 @@
     </div>
   }
 
-  @if(words.length > 1){
-    <div class="center">
-      <mat-button-toggle-group name="role" aria-label="Role" [(ngModel)]="role">
-          <mat-button-toggle value="operative">Operative</mat-button-toggle>
-          <mat-button-toggle value="spymaster">Spymaster</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-  }
+  <div class="center">
+    <mat-button-toggle-group name="role" aria-label="Role" [(ngModel)]="role" [disabled]="gameRunning">
+        <mat-button-toggle value="operative">Operative</mat-button-toggle>
+        <mat-button-toggle value="spymaster">Spymaster</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
 
   <div class="container">
@@ -29,8 +27,12 @@
     }
   </div>
 
-  @if(words.length > 1){
-    <button mat-raised-button class="nextGame" (click)="nextGame()">Next Game</button>
+  @if(words.length > 1 && gameRunning == true){
+    <button mat-raised-button class="nextGame" (click)="stopGame()">Stop Game</button>
+  }
+
+  @if(words.length > 1 && gameRunning == false){
+    <button mat-raised-button class="nextGame" (click)="startGame()">Next Game</button>
   }
 
 </div>
